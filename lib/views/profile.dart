@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:rapid_pass/providers/theme_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
@@ -19,7 +17,7 @@ class _ProfileState extends State<Profile> {
         children: [
           OutlinedButton(
             onPressed: () {
-              context.read<ThemeProvider>().changeTheme();
+              // context.read<ThemeProvider>().changeTheme();
             },
             child: const Text('Change Theme'),
           ),
