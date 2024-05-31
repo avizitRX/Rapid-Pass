@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:rapid_pass/components/categories_section.dart';
+import 'package:rapid_pass/services/information_api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
+
+  get cardNumberController => null;
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -10,12 +14,25 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   String buttonText = 'ব্যালেন্স দেখুন';
-  double balance = 0.0;
   bool isLoading = false;
 
-  Future<String> fetchBalance() async {
-    await Future.delayed(const Duration(seconds: 1));
-    return balance.toString();
+  String name = "";
+
+  final cardNumberController = TextEditingController();
+
+  @override
+  void initState() {
+    InformationApi().fetchBalance();
+    loadData();
+    super.initState();
+  }
+
+  // Load data from SharedPreferences
+  Future<void> loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = prefs.getString('name')!;
+    });
   }
 
   @override
@@ -49,7 +66,7 @@ class _HomepageState extends State<Homepage> {
                       height: 5,
                     ),
                     Text(
-                      'নাম',
+                      name,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             color: Theme.of(context).colorScheme.onPrimary,
                           ),
@@ -62,23 +79,115 @@ class _HomepageState extends State<Homepage> {
                     // Balance Check Button
                     ElevatedButton(
                       onPressed: () async {
-                        setState(() {
-                          isLoading = true;
-                          buttonText = 'Loading...';
-                        });
+                        final SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        if (prefs.getString('cardNumber') != null) {
+                          setState(() {
+                            isLoading = true;
+                            buttonText = 'Loading...';
+                          });
 
-                        String fetchedBalance = await fetchBalance();
+                          String fetchedBalance =
+                              await InformationApi().fetchBalance();
 
-                        setState(() {
-                          isLoading = false;
-                          buttonText = fetchedBalance;
-
-                          Future.delayed(const Duration(seconds: 4), () {
+                          if (fetchedBalance == "Error") {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                content: Text(
+                                  'আপনি ভুল কার্ড নম্বর দিয়েছেন!',
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context, 'OK');
+                                      const Homepage()
+                                          .cardNumberController
+                                          .text = '';
+                                    },
+                                    child: const Text('আচ্ছা'),
+                                  ),
+                                ],
+                              ),
+                            );
                             setState(() {
+                              isLoading = false;
                               buttonText = 'ব্যালেন্স দেখুন';
                             });
-                          });
-                        });
+                          } else {
+                            setState(() {
+                              isLoading = false;
+                              buttonText = fetchedBalance;
+
+                              Future.delayed(const Duration(seconds: 4), () {
+                                setState(() {
+                                  buttonText = 'ব্যালেন্স দেখুন';
+                                });
+                              });
+                            });
+                          }
+                        } else {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('কার্ড নম্বর'),
+                              content: TextField(
+                                controller: cardNumberController,
+                                autofocus: true,
+                                decoration: const InputDecoration(
+                                  hintText: 'আপনার কার্ড নম্বর দিন',
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context, 'Cancel');
+                                    cardNumberController.text = '';
+                                  },
+                                  child: const Text('বাতিল'),
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    if (cardNumberController.text.isNotEmpty) {
+                                      await prefs.setString('cardNumber',
+                                          cardNumberController.text);
+                                      Navigator.pop(context, 'Cancel');
+
+                                      setState(() {
+                                        initState();
+                                      });
+
+                                      showDialog<String>(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            AlertDialog(
+                                          content: Text(
+                                            'আপনার কার্ড নম্বর সংরক্ষিত হয়েছে!',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge,
+                                          ),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context, 'OK');
+                                                cardNumberController.text = '';
+                                              },
+                                              child: const Text('আচ্ছা'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                      cardNumberController.text = '';
+                                    }
+                                  },
+                                  child: const Text('সংরক্ষণ'),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
                       },
                       child: isLoading
                           ? Container(

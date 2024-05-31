@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rapid_pass/providers/balance_provider.dart';
 import 'package:rapid_pass/providers/theme_provider.dart';
+import 'package:rapid_pass/services/my_http_overrides.dart';
 import 'package:rapid_pass/views/base.dart';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
 
