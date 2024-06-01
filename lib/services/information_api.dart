@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_scraper/web_scraper.dart';
@@ -51,10 +52,12 @@ class InformationApi {
           }
         }
       } else {
-        print('Failed to send request. Status code: ${response.statusCode}');
+        debugPrint(response.statusCode.toString());
+        return "Failed!";
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
+      return "Failed!";
     }
     return "Error";
   }
