@@ -40,7 +40,14 @@ class CategoriesSection extends StatelessWidget {
                   itemBuilder: (context, subIndex) {
                     final subcategory = category.subcategories[subIndex];
                     return GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => subcategory.url!,
+                          ),
+                        );
+                      },
                       child: Column(
                         children: [
                           Card(
