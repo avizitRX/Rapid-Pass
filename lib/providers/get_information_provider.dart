@@ -17,4 +17,14 @@ class GetInformationProvider with ChangeNotifier {
     );
     notifyListeners();
   }
+
+  Future<bool> isLoggedIn() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if (await prefs.getString('cardNumber') == "") {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }

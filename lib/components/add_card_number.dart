@@ -15,9 +15,9 @@ Future<String?> addCardNumber(BuildContext context) async {
       content: TextField(
         controller: cardNumberController,
         autofocus: true,
-        decoration: InputDecoration(
-          prefixText: 'RP',
-          prefixStyle: Theme.of(context).textTheme.bodyLarge,
+        decoration: const InputDecoration(
+          // prefixText: 'RP',
+          // prefixStyle: Theme.of(context).textTheme.bodyLarge,
           hintText: 'আপনার কার্ড নম্বর দিন',
         ),
       ),
@@ -33,8 +33,7 @@ Future<String?> addCardNumber(BuildContext context) async {
           onPressed: () async {
             if (cardNumberController.text.isNotEmpty) {
               await clearAllInformation();
-              await prefs.setString(
-                  'cardNumber', 'RP${cardNumberController.text}');
+              await prefs.setString('cardNumber', cardNumberController.text);
               Provider.of<GetInformationProvider>(context, listen: false)
                   .fetchInformation();
               Navigator.pop(context, 'Cancel');

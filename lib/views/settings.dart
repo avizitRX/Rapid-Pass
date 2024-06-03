@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rapid_pass/components/add_card_number.dart';
+import 'package:rapid_pass/providers/get_information_provider.dart';
 import 'package:rapid_pass/providers/theme_provider.dart';
 import 'package:rapid_pass/services/clear_all_information.dart';
 
 class Settings extends StatefulWidget {
-  const Settings({super.key});
+  Settings(GetInformationProvider this.infoData, {super.key});
+
+  GetInformationProvider infoData;
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -25,10 +28,15 @@ class _SettingsState extends State<Settings> {
               const SizedBox(
                 height: 10,
               ),
-              ElevatedButton(
-                onPressed: () => addCardNumber(context),
-                child: const Text('কার্ড নম্বর পরিবর্তন'),
-              ),
+              widget.infoData.info?.cardNumber == ""
+                  ? ElevatedButton(
+                      onPressed: () => addCardNumber(context),
+                      child: const Text('কার্ড নম্বর যোগ'),
+                    )
+                  : ElevatedButton(
+                      onPressed: () => addCardNumber(context),
+                      child: const Text('কার্ড নম্বর পরিবর্তন'),
+                    ),
               const SizedBox(
                 height: 10,
               ),

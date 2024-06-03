@@ -34,19 +34,34 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLightTheme = context.watch<ThemeProvider>().lightTheme;
+
+    // Define the light theme color scheme
+    ColorScheme lightScheme = ColorScheme.fromSeed(
+      seedColor: Colors.lightBlue,
+      brightness: Brightness.light,
+    );
+
+    // Define the dark theme color scheme, using the light theme's primary color
+    ColorScheme darkScheme = ColorScheme.fromSeed(
+      seedColor: Colors.lightBlue,
+      brightness: Brightness.dark,
+    ).copyWith(
+      primaryFixedDim: lightScheme.primary, // Use light theme's primary color
+    );
     return MaterialApp(
       title: 'Rapid Pass',
       theme: ThemeData(
         fontFamily: 'SolaimanLipi',
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.lightBlue,
-          // brightness: Brightness.light,
-          brightness: context.watch<ThemeProvider>().lightTheme
-              ? Brightness.light
-              : Brightness.dark,
-        ),
+        colorScheme: lightScheme,
         useMaterial3: true,
       ),
+      darkTheme: ThemeData(
+        fontFamily: 'SolaimanLipi',
+        colorScheme: darkScheme,
+        useMaterial3: true,
+      ),
+      themeMode: isLightTheme ? ThemeMode.light : ThemeMode.dark,
       home: const Base(),
     );
   }

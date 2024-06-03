@@ -55,7 +55,7 @@ class _ProfileState extends State<Profile> {
                           onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const Settings(),
+                              builder: (context) => Settings(infoData),
                             ),
                           ),
                           child: const Text('সেটিংস'),
@@ -67,32 +67,3 @@ class _ProfileState extends State<Profile> {
     );
   }
 }
-
-
-
-// Center(
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           OutlinedButton(
-//             onPressed: () {
-//               context.read<ThemeProvider>().changeTheme();
-//             },
-//             child: const Text('Change Theme'),
-//           ),
-//           const SizedBox(
-//             height: 10,
-//           ),
-//           OutlinedButton(
-//             onPressed: () async {
-//               final SharedPreferences prefs =
-//                   await SharedPreferences.getInstance();
-//               await prefs.remove('cardNumber');
-//               await prefs.remove('name');
-//               await prefs.remove('cardStatus');
-//             },
-//             child: const Text('Clear Card Information'),
-//           ),
-//         ],
-//       ),
-//     );

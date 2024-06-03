@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rapid_pass/views/settings.dart';
+import 'package:rapid_pass/views/profile.dart';
 
 class Category {
   final String name;
@@ -27,7 +27,10 @@ List<Category> categories = [
       Category(
         name: 'কার্ড যোগ',
         icon: "assets/images/category/card_add.png",
-        url: const Settings(),
+        url: Scaffold(
+          appBar: AppBar(),
+          body: const Profile(),
+        ),
       ),
       Category(
         name: 'কার্ড রিচার্জ',
