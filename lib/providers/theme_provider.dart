@@ -7,7 +7,7 @@ class ThemeProvider extends ChangeNotifier {
     this.lightTheme = true,
   });
 
-  void changeTheme() async {
+  void changeTheme() {
     lightTheme = !lightTheme;
     notifyListeners();
   }

@@ -1,13 +1,12 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:rapid_pass/components/add_card_number.dart';
 import 'package:rapid_pass/components/categories_section.dart';
 import 'package:rapid_pass/services/information_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
-
-  get cardNumberController => null;
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -18,8 +17,6 @@ class _HomepageState extends State<Homepage> {
   bool isLoading = false;
 
   String name = "";
-
-  final cardNumberController = TextEditingController();
 
   @override
   void initState() {
@@ -99,8 +96,6 @@ class _HomepageState extends State<Homepage> {
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context, 'OK');
-                                    const Homepage().cardNumberController.text =
-                                        '';
                                   },
                                   child: const Text('আচ্ছা'),
                                 ),
@@ -156,9 +151,6 @@ class _HomepageState extends State<Homepage> {
                                     TextButton(
                                       onPressed: () {
                                         Navigator.pop(context, 'OK');
-                                        const Homepage()
-                                            .cardNumberController
-                                            .text = '';
                                       },
                                       child: const Text('আচ্ছা'),
                                     ),
@@ -182,67 +174,7 @@ class _HomepageState extends State<Homepage> {
                               });
                             }
                           } else {
-                            showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Text('কার্ড নম্বর'),
-                                content: TextField(
-                                  controller: cardNumberController,
-                                  autofocus: true,
-                                  decoration: const InputDecoration(
-                                    hintText: 'আপনার কার্ড নম্বর দিন',
-                                  ),
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context, 'Cancel');
-                                      cardNumberController.text = '';
-                                    },
-                                    child: const Text('বাতিল'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () async {
-                                      if (cardNumberController
-                                          .text.isNotEmpty) {
-                                        await prefs.setString('cardNumber',
-                                            cardNumberController.text);
-                                        Navigator.pop(context, 'Cancel');
-
-                                        setState(() {
-                                          initState();
-                                        });
-
-                                        showDialog<String>(
-                                          context: context,
-                                          builder: (BuildContext context) =>
-                                              AlertDialog(
-                                            content: Text(
-                                              'আপনার কার্ড নম্বর সংরক্ষিত হয়েছে!',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyLarge,
-                                            ),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context, 'OK');
-                                                  cardNumberController.text =
-                                                      '';
-                                                },
-                                                child: const Text('আচ্ছা'),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                        cardNumberController.text = '';
-                                      }
-                                    },
-                                    child: const Text('সংরক্ষণ'),
-                                  ),
-                                ],
-                              ),
-                            );
+                            addCardNumber(context);
                           }
                         }
                       },

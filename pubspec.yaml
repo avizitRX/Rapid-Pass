@@ -39,6 +39,7 @@ dependencies:
   html: ^0.15.4
   web_scraper: ^0.1.4
   connectivity_plus: ^6.0.3
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
