@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rapid_pass/views/card_registration.dart';
 import 'package:rapid_pass/views/profile.dart';
 
 class Category {
@@ -23,6 +24,7 @@ List<Category> categories = [
       Category(
         name: 'কার্ড রেজিস্ট্রেশন',
         icon: "assets/images/category/card_registration.png",
+        url: const CardRegistration(),
       ),
       Category(
         name: 'কার্ড যোগ',
