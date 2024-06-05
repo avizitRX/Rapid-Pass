@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rapid_pass/views/card_registration.dart';
+import 'package:rapid_pass/views/fare_map.dart';
 import 'package:rapid_pass/views/profile.dart';
 import 'package:rapid_pass/views/timetable.dart';
 
@@ -55,8 +56,9 @@ List<Category> categories = [
         icon: "assets/images/category/fare_chart.png",
       ),
       Category(
-        name: 'ভাড়ার ম্যাপ',
+        name: 'ম্যাপ',
         icon: "assets/images/category/fare_map.png",
+        url: FareMap(),
       ),
       Category(
         name: 'স্টেশন',

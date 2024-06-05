@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rapid_pass/providers/balance_provider.dart';
 import 'package:rapid_pass/providers/get_information_provider.dart';
+import 'package:rapid_pass/providers/map_timeline_tile_provider.dart';
 import 'package:rapid_pass/providers/theme_provider.dart';
 import 'package:rapid_pass/services/my_http_overrides.dart';
 import 'package:rapid_pass/views/base.dart';
@@ -22,6 +23,9 @@ void main() async {
         ),
         ChangeNotifierProvider<GetInformationProvider>(
           create: (_) => GetInformationProvider(),
+        ),
+        ChangeNotifierProvider<MapTimelineTileProvider>(
+          create: (_) => MapTimelineTileProvider(),
         ),
       ],
       child: const MyApp(),
