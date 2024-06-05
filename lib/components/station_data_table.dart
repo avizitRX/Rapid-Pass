@@ -3,12 +3,13 @@ import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show ByteData, rootBundle;
 
-class FareChartDataTable {
+class StationDataTable {
   List<List<dynamic>> data = []; // List to store excel data
 
   Future<List<List<String>>> readExcelFile() async {
     // Load the Excel file as bytes
-    ByteData data = await rootBundle.load('assets/documents/fare_chart.xlsx');
+    ByteData data =
+        await rootBundle.load('assets/documents/station_information.xlsx');
     var bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
     // Decode the Excel file
@@ -51,10 +52,12 @@ class FareChartDataTable {
                 return Theme.of(context).primaryColor;
               }),
               columns: headers!.asMap().entries.map((entry) {
+                int index = entry.key;
                 String header = entry.value;
 
                 return DataColumn(
                   label: Container(
+                    color: index == 0 ? Theme.of(context).primaryColor : null,
                     alignment: Alignment.center,
                     child: Text(
                       header,
@@ -75,14 +78,16 @@ class FareChartDataTable {
                     String cellValue = entry.value;
                     return DataCell(
                       Center(
-                        child: Text(
-                          textAlign: TextAlign.center,
-                          cellValue,
-                          style: cellIndex == 0
-                              ? const TextStyle(
-                                  color: Colors.white,
-                                )
-                              : null,
+                        child: Container(
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            cellValue,
+                            style: cellIndex == 0
+                                ? const TextStyle(
+                                    color: Colors.white,
+                                  )
+                                : null,
+                          ),
                         ),
                       ),
                     );
@@ -92,7 +97,7 @@ class FareChartDataTable {
               fixedLeftColumns: 1,
               columnSpacing: 12,
               horizontalMargin: 12,
-              minWidth: 1500,
+              minWidth: 80,
               border: TableBorder.all(
                 width: 1,
                 color: Theme.of(context).colorScheme.secondaryContainer,

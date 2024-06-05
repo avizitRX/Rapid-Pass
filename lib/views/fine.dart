@@ -12,7 +12,7 @@ class Fine extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Text(
               '''
 বাংলাদেশের প্রথম মেট্রোরেল ‘ঢাকা মেট্রোরেল’। অনেকেই মেট্রোরেল ভ্রমণে অভ্যস্ত নাই বিধায় জরিমানা সংক্রান্ত বিষয়ে কম অবগত থাকেন। এখানে ঢাকা মেট্রোরেলের সব ধরনের জরিমানা নিয়ে আলোচনা করা হয়েছে।
