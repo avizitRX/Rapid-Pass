@@ -15,6 +15,9 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  int flag = 0;
+  bool locked = true;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -40,20 +43,55 @@ class _SettingsState extends State<Settings> {
               const SizedBox(
                 height: 10,
               ),
-              ElevatedButton(
+              // ElevatedButton(
+              //   onPressed: () {
+              //     context.read<ThemeProvider>().changeTheme();
+              //   },
+              //   child: const Text('থিম পরিবর্তন'),
+              // ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              // ElevatedButton(
+              //   onPressed: () async {
+              //     await clearAllInformation();
+              //   },
+              //   child: const Text('Clear All Information'),
+              // ),
+
+              // About Section
+              TextButton(
                 onPressed: () {
-                  context.read<ThemeProvider>().changeTheme();
+                  if (flag > 8) {
+                    locked = false;
+                  }
+                  flag++;
+                  print(flag);
                 },
-                child: const Text('থিম পরিবর্তন'),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  await clearAllInformation();
+                onLongPress: () {
+                  if (!locked) {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Hello There'),
+                        content: const Text('Yoooooooo!'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
                 },
-                child: const Text('Clear All Information'),
+                style: ButtonStyle(
+                  overlayColor: WidgetStateProperty.all(Colors.transparent),
+                ),
+                child: Text(
+                  'Developed by Star Soft.',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
               ),
             ],
           ),
