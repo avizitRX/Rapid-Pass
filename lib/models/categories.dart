@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rapid_pass/views/card_registration.dart';
 import 'package:rapid_pass/views/fare_chart.dart';
 import 'package:rapid_pass/views/fare_map.dart';
+import 'package:rapid_pass/views/fine.dart';
 import 'package:rapid_pass/views/profile.dart';
+import 'package:rapid_pass/views/station.dart';
 import 'package:rapid_pass/views/timetable.dart';
 
 class Category {
@@ -65,10 +67,12 @@ List<Category> categories = [
       Category(
         name: 'স্টেশন',
         icon: "assets/images/category/station.png",
+        url: const Station(),
       ),
       Category(
         name: 'জরিমানা',
         icon: "assets/images/category/fine.png",
+        url: const Fine(),
       ),
       Category(
         name: 'ব্ল্যাকলিস্টেড',
