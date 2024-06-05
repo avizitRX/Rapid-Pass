@@ -11,6 +11,7 @@ class CardRegistration extends StatefulWidget {
 
 class _CardRegistrationState extends State<CardRegistration> {
   final controller = WebViewController();
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -90,16 +91,18 @@ class _CardRegistrationState extends State<CardRegistration> {
 
               // Remove the top attribute when the document is fully loaded
               removeTopFromModal();
-            ''');
-              isFirstLoad = false;
+              ''');
+            }
+
+            if (isLoading) {
+              setState(() {
+                isLoading = false;
+              });
             }
           },
           onHttpError: (HttpResponseError error) {},
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
-            // if (request.url.startsWith('https://www.youtube.com/')) {
-            //   return NavigationDecision.prevent;
-            // }
             return NavigationDecision.navigate;
           },
         ),
@@ -141,7 +144,11 @@ class _CardRegistrationState extends State<CardRegistration> {
         appBar: AppBar(
           title: const Text('রেজিস্ট্রেশন'),
         ),
-        body: WebViewWidget(controller: controller),
+        body: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : WebViewWidget(controller: controller),
       ),
     );
   }

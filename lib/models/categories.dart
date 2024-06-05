@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rapid_pass/views/card_registration.dart';
 import 'package:rapid_pass/views/profile.dart';
+import 'package:rapid_pass/views/timetable.dart';
 
 class Category {
   final String name;
@@ -47,6 +48,7 @@ List<Category> categories = [
       Category(
         name: 'সময়সূচি',
         icon: "assets/images/category/timetable.png",
+        url: const Timetable(),
       ),
       Category(
         name: 'ভাড়া তালিকা',
