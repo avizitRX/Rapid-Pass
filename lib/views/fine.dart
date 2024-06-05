@@ -31,6 +31,7 @@ class Fine extends StatelessWidget {
 
 ৭) একটা MRT pass দিয়ে শুধুমাত্র একজন যেতে পারবেন। এছাড়া অন্যদের টিকেট লাগবে। যদি কাউকে এক পাসের বিপরীতে একাধিক জনের এন্ট্রি পাওয়া যায় তাহলে কার্ডধারী ব্যতীত বাকি সবার জন্য ১২০ টাকা করে জরিমানা দিতে হবে।
           ''',
+              textAlign: TextAlign.justify,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
