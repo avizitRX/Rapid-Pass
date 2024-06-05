@@ -42,6 +42,8 @@ dependencies:
   provider: ^6.1.2
   webview_flutter: ^4.8.0
   timeline_tile: ^2.0.0
+  excel: 
+  data_table_2: ^2.5.12
 
 dev_dependencies:
   flutter_test:

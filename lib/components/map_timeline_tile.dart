@@ -35,10 +35,10 @@ class MapTimelineTile extends StatelessWidget {
         ),
       ),
       beforeLineStyle: LineStyle(
-        color: mainColor,
+        color: Theme.of(context).primaryColor,
       ),
       afterLineStyle: LineStyle(
-        color: mainColor,
+        color: Theme.of(context).primaryColor,
       ),
       endChild: Container(
         padding: const EdgeInsets.all(20),
