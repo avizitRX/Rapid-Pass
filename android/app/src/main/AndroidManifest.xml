@@ -3,9 +3,9 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:label="rapid_pass"
+        android:label="Rapid Pass"
         android:name="${applicationName}"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

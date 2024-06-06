@@ -89,7 +89,7 @@ class _SettingsState extends State<Settings> {
                   overlayColor: WidgetStateProperty.all(Colors.transparent),
                 ),
                 child: Text(
-                  'Developed by Star Soft.',
+                  'Developed with ❤️',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
