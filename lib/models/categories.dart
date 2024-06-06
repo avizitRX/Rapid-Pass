@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rapid_pass/views/blacklisted.dart';
+import 'package:rapid_pass/views/card_recharge.dart';
 import 'package:rapid_pass/views/card_registration.dart';
 import 'package:rapid_pass/views/fare_chart.dart';
 import 'package:rapid_pass/views/fare_map.dart';
@@ -43,6 +44,7 @@ List<Category> categories = [
       Category(
         name: 'কার্ড রিচার্জ',
         icon: "assets/images/category/card_recharge.png",
+        url: const CardRecharge(),
       ),
     ],
   ),
