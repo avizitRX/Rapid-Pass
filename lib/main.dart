@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rapid_pass/providers/balance_provider.dart';
 import 'package:rapid_pass/providers/get_information_provider.dart';
@@ -10,6 +11,11 @@ import 'package:rapid_pass/views/base.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   HttpOverrides.global = MyHttpOverrides();
   runApp(
