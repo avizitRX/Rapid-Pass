@@ -164,6 +164,7 @@ class _HomepageState extends State<Homepage> {
             Expanded(
               // Header Balance Check Area
               child: RippleEffect(
+                dampening: 0.97,
                 child: Container(
                   padding: const EdgeInsets.only(top: 30, bottom: 40),
                   decoration: const BoxDecoration(

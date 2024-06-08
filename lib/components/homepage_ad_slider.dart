@@ -34,7 +34,6 @@ class _HomepageAdSliderState extends State<HomepageAdSlider> {
   void initState() {
     super.initState();
     int adNumber = Random().nextInt(2);
-    print(adNumber);
 
     _pageController = PageController(
       initialPage: adNumber,
@@ -91,12 +90,13 @@ class _HomepageAdSliderState extends State<HomepageAdSlider> {
             onTap: () async {
               toLaunch = Uri(
                 scheme: 'https',
-                host: 'dreamhomebd.com',
+                host: 'www.youtube.com',
+                path: '@dreamhomebd',
               );
               _launchInBrowser(toLaunch);
             },
             child: Image.asset(
-              'assets/images/ad/ad2.png',
+              'assets/images/ad/ad2.jpg',
               fit: BoxFit.contain,
             ),
           ),
