@@ -12,7 +12,7 @@ class CategoriesSection extends StatelessWidget {
         itemBuilder: (_, index) {
           var category = categories[index];
           return Container(
-            margin: const EdgeInsets.all(8),
+            margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

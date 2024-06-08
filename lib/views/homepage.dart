@@ -5,6 +5,7 @@ import 'package:rapid_pass/components/homepage_ad_slider.dart';
 import 'package:rapid_pass/models/categories.dart';
 import 'package:rapid_pass/services/information_api.dart';
 import 'package:rapid_pass/views/profile.dart';
+import 'package:ripple_effect/ripple_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutorial/tutorial.dart';
 
@@ -162,180 +163,201 @@ class _HomepageState extends State<Homepage> {
           children: [
             Expanded(
               // Header Balance Check Area
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 30),
-                decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primaryFixedDim),
-                child: Column(
-                  children: [
-                    Container(
-                      width: 50.0,
-                      height: 50.0,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                      ),
-                      child: Icon(
-                        Icons.person_rounded,
-                        size: 40,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      name,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            color: Theme.of(context).colorScheme.onPrimary,
-                          ),
-                    ),
-
-                    const SizedBox(
-                      height: 5,
-                    ),
-
-                    // Balance Check Button
-                    ElevatedButton(
-                      key: keyBalanceCheck,
-                      onPressed: () async {
-                        final SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-                        final List<ConnectivityResult> connectivityResult =
-                            await (Connectivity().checkConnectivity());
-
-                        // Internet Connection Check
-                        if (connectivityResult
-                            .contains(ConnectivityResult.none)) {
-                          showDialog<String>(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              content: Text(
-                                'দয়া করে ইন্টারনেট সংযোগ দিন!',
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context, 'OK');
-                                  },
-                                  child: const Text('আচ্ছা'),
-                                ),
-                              ],
+              child: RippleEffect(
+                child: Container(
+                  padding: const EdgeInsets.only(top: 30, bottom: 40),
+                  decoration: const BoxDecoration(
+                    // color: Theme.of(context).colorScheme.primaryFixedDim),
+                    image: DecorationImage(
+                        image: AssetImage('assets/background.jpg'),
+                        fit: BoxFit.cover),
+                  ),
+                  child: Column(
+                    children: [
+                      Column(
+                        children: [
+                          Container(
+                            width: 50.0,
+                            height: 50.0,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white,
                             ),
-                          );
-                        } else {
-                          if (prefs.getString('cardNumber') != null) {
-                            setState(() {
-                              isLoading = true;
-                              buttonText = 'Loading...';
-                            });
-
-                            String fetchedBalance =
-                                await InformationApi().fetchBalance();
-
-                            if (fetchedBalance == "Failed") {
-                              showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  content: Text(
-                                    'Operation Failed!',
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge,
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context, 'OK');
-                                      },
-                                      child: const Text('আচ্ছা'),
+                            child: Icon(
+                              Icons.person_rounded,
+                              size: 40,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 25),
+                              child: Text(
+                                name,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
                                     ),
-                                  ],
-                                ),
-                              );
-
-                              setState(() {
-                                isLoading = false;
-                                buttonText = 'ব্যালেন্স দেখুন';
-                              });
-                            }
-
-                            if (fetchedBalance == "Error") {
-                              showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  content: Text(
-                                    'আপনি ভুল কার্ড নম্বর দিয়েছেন!',
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge,
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context, 'OK');
-                                      },
-                                      child: const Text('আচ্ছা'),
-                                    ),
-                                  ],
-                                ),
-                              );
-                              setState(() {
-                                isLoading = false;
-                                buttonText = 'ব্যালেন্স দেখুন';
-                              });
-                            } else {
-                              setState(() {
-                                isLoading = false;
-                                buttonText = fetchedBalance;
-
-                                Future.delayed(const Duration(seconds: 4), () {
-                                  setState(() {
-                                    buttonText = 'ব্যালেন্স দেখুন';
-                                  });
-                                });
-                              });
-                            }
-                          } else {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return SafeArea(
-                                    child: Scaffold(
-                                      appBar: AppBar(),
-                                      body: const Profile(),
-                                    ),
-                                  );
-                                },
                               ),
-                            );
-                          }
-                        }
-                      },
-                      child: isLoading
-                          ? Container(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 0.3),
-                              child: const SizedBox(
-                                height: 15.0,
-                                width: 15.0,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                ),
-                              ),
-                            )
-                          : Text(buttonText),
-                    ),
-                  ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ],
         ),
 
-        // Categories Section
-        const SizedBox(
-          height: 15,
+        // Balance Check Button
+        Container(
+          padding: const EdgeInsets.only(top: 5, bottom: 20),
+          // decoration: BoxDecoration(
+          //     color: Theme.of(context).colorScheme.primaryFixedDim),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                key: keyBalanceCheck,
+                onPressed: () async {
+                  final SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  final List<ConnectivityResult> connectivityResult =
+                      await (Connectivity().checkConnectivity());
+
+                  // Internet Connection Check
+                  if (connectivityResult.contains(ConnectivityResult.none)) {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        content: Text(
+                          'দয়া করে ইন্টারনেট সংযোগ দিন!',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context, 'OK');
+                            },
+                            child: const Text('আচ্ছা'),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    if (prefs.getString('cardNumber') != null) {
+                      setState(() {
+                        isLoading = true;
+                        buttonText = 'Loading...';
+                      });
+
+                      String fetchedBalance =
+                          await InformationApi().fetchBalance();
+
+                      if (fetchedBalance == "Failed") {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            content: Text(
+                              'Operation Failed!',
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context, 'OK');
+                                },
+                                child: const Text('আচ্ছা'),
+                              ),
+                            ],
+                          ),
+                        );
+
+                        setState(() {
+                          isLoading = false;
+                          buttonText = 'ব্যালেন্স দেখুন';
+                        });
+                      }
+
+                      if (fetchedBalance == "Error") {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            content: Text(
+                              'আপনি ভুল কার্ড নম্বর দিয়েছেন!',
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context, 'OK');
+                                },
+                                child: const Text('আচ্ছা'),
+                              ),
+                            ],
+                          ),
+                        );
+                        setState(() {
+                          isLoading = false;
+                          buttonText = 'ব্যালেন্স দেখুন';
+                        });
+                      } else {
+                        setState(() {
+                          isLoading = false;
+                          buttonText = fetchedBalance;
+
+                          Future.delayed(const Duration(seconds: 4), () {
+                            setState(() {
+                              buttonText = 'ব্যালেন্স দেখুন';
+                            });
+                          });
+                        });
+                      }
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return SafeArea(
+                              child: Scaffold(
+                                appBar: AppBar(),
+                                body: const Profile(),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    }
+                  }
+                },
+                child: isLoading
+                    ? Container(
+                        padding: const EdgeInsets.symmetric(vertical: 0.3),
+                        child: const SizedBox(
+                          height: 15.0,
+                          width: 15.0,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                          ),
+                        ),
+                      )
+                    : Text(buttonText),
+              ),
+            ],
+          ),
         ),
 
         const CategoriesSection(),
