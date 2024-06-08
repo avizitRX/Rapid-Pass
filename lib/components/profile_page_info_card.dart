@@ -15,9 +15,23 @@ class ProfilePageInfoCard extends StatelessWidget {
     return Column(
       children: [
         infoData.info!.cardNumber == ""
-            ? ElevatedButton(
-                onPressed: () => addCardNumber(context),
-                child: const Text('কার্ড নম্বর যোগ'),
+            ? Column(
+                children: [
+                  InteractiveViewer(
+                    panEnabled: true,
+                    child: const Image(
+                      image: AssetImage(
+                          'assets/images/card_add/rapid_pass_card_back.jpg'),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    onPressed: () => addCardNumber(context),
+                    child: const Text('কার্ড নম্বর যোগ'),
+                  ),
+                ],
               )
             : Column(
                 children: [

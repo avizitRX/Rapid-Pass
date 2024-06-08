@@ -1,9 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:rapid_pass/components/add_card_number.dart';
 import 'package:rapid_pass/components/categories_section.dart';
 import 'package:rapid_pass/models/categories.dart';
 import 'package:rapid_pass/services/information_api.dart';
+import 'package:rapid_pass/views/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutorial/tutorial.dart';
 
@@ -49,7 +49,7 @@ class _HomepageState extends State<Homepage> {
         TutorialItem(
           globalKey: keyCardRegistration,
           touchScreen: true,
-          top: 420,
+          top: 500,
           left: 30,
           children: [
             const Text(
@@ -72,7 +72,7 @@ class _HomepageState extends State<Homepage> {
         TutorialItem(
           globalKey: keyCardRegistration,
           touchScreen: true,
-          top: 420,
+          top: 500,
           left: 30,
           children: [
             const Text(
@@ -95,7 +95,7 @@ class _HomepageState extends State<Homepage> {
         TutorialItem(
           globalKey: keyCardAdd,
           touchScreen: true,
-          top: 420,
+          top: 500,
           left: 30,
           children: [
             const Text(
@@ -118,7 +118,7 @@ class _HomepageState extends State<Homepage> {
         TutorialItem(
           globalKey: keyBalanceCheck,
           touchScreen: true,
-          top: 200,
+          top: 280,
           left: 50,
           children: [
             const Text(
@@ -295,7 +295,19 @@ class _HomepageState extends State<Homepage> {
                               });
                             }
                           } else {
-                            addCardNumber(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return SafeArea(
+                                    child: Scaffold(
+                                      appBar: AppBar(),
+                                      body: const Profile(),
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
                           }
                         }
                       },

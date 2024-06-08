@@ -52,12 +52,12 @@ class _SettingsState extends State<Settings> {
               // const SizedBox(
               //   height: 10,
               // ),
-              // ElevatedButton(
-              //   onPressed: () async {
-              //     await clearAllInformation();
-              //   },
-              //   child: const Text('Clear All Information'),
-              // ),
+              ElevatedButton(
+                onPressed: () async {
+                  await clearAllInformation();
+                },
+                child: const Text('Clear All Information'),
+              ),
 
               // About Section
               TextButton(

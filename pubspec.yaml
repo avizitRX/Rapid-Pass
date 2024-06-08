@@ -73,6 +73,8 @@ flutter:
   assets:
     - assets/images/category/
     - assets/images/card_recharge/
+    - assets/images/card_add/
+    - assets/images/ad/
     - assets/documents/
     - assets/images/
 

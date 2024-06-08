@@ -36,8 +36,11 @@ class CardRecharge extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Image(
-                  image: AssetImage('assets/images/card_recharge/1.jpg'),
+                InteractiveViewer(
+                  panEnabled: true,
+                  child: const Image(
+                    image: AssetImage('assets/images/card_recharge/1.jpg'),
+                  ),
                 ),
                 RichText(
                   textAlign: TextAlign.justify,
@@ -52,8 +55,11 @@ class CardRecharge extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Image(
-                  image: AssetImage('assets/images/card_recharge/2.jpg'),
+                InteractiveViewer(
+                  panEnabled: true,
+                  child: const Image(
+                    image: AssetImage('assets/images/card_recharge/2.jpg'),
+                  ),
                 ),
                 RichText(
                   textAlign: TextAlign.justify,
@@ -68,8 +74,11 @@ class CardRecharge extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Image(
-                  image: AssetImage('assets/images/card_recharge/3.jpg'),
+                InteractiveViewer(
+                  panEnabled: true,
+                  child: const Image(
+                    image: AssetImage('assets/images/card_recharge/3.jpg'),
+                  ),
                 ),
                 RichText(
                   textAlign: TextAlign.start,
@@ -83,8 +92,11 @@ class CardRecharge extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Image(
-                  image: AssetImage('assets/images/card_recharge/4.jpg'),
+                InteractiveViewer(
+                  panEnabled: true,
+                  child: const Image(
+                    image: AssetImage('assets/images/card_recharge/4.jpg'),
+                  ),
                 ),
                 RichText(
                   textAlign: TextAlign.justify,
@@ -99,8 +111,11 @@ class CardRecharge extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Image(
-                  image: AssetImage('assets/images/card_recharge/5.jpg'),
+                InteractiveViewer(
+                  panEnabled: true,
+                  child: const Image(
+                    image: AssetImage('assets/images/card_recharge/5.jpg'),
+                  ),
                 ),
                 RichText(
                   textAlign: TextAlign.justify,

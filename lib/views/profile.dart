@@ -28,12 +28,10 @@ class _ProfileState extends State<Profile> {
                   child: CircularProgressIndicator(),
                 )
               : Consumer<GetInformationProvider>(
-                  builder: (ctx, infoData, _) => Center(
+                  builder: (ctx, infoData, _) => SingleChildScrollView(
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
                         const Icon(
                           Icons.person_rounded,
                           size: 72,
@@ -45,6 +43,7 @@ class _ProfileState extends State<Profile> {
                         const SizedBox(
                           height: 30,
                         ),
+                        // Profile Information / Card Add
                         ProfilePageInfoCard(
                           infoData: infoData,
                         ),
