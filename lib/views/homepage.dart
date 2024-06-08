@@ -104,7 +104,7 @@ class _HomepageState extends State<Homepage> {
             ),
             const SizedBox(
               height: 30,
-            )
+            ),
           ],
           widgetNext: const Text(
             "শেষ",
@@ -120,7 +120,7 @@ class _HomepageState extends State<Homepage> {
 
     bool isFirstLaunch = prefs.getBool('isFirstLaunch') ?? true;
 
-    if (!isFirstLaunch) {
+    if (isFirstLaunch) {
       Future.delayed(const Duration(microseconds: 200)).then((value) {
         Tutorial.showTutorial(context, items);
       });
