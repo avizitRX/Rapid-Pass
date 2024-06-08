@@ -11,17 +11,22 @@ import 'package:rapid_pass/views/timetable.dart';
 
 class Category {
   final String name;
+  final Key? key;
   final String icon;
   final Widget? url;
   final List<Category> subcategories;
 
   Category({
     required this.name,
+    this.key,
     required this.icon,
     this.url,
     this.subcategories = const [],
   });
 }
+
+final keyCardRegistration = GlobalKey();
+final keyCardAdd = GlobalKey();
 
 List<Category> categories = [
   Category(
@@ -29,17 +34,19 @@ List<Category> categories = [
     icon: "assets/images/category/category.png",
     subcategories: [
       Category(
+        name: 'কার্ড রেজিস্ট্রেশন',
+        key: keyCardRegistration,
+        icon: "assets/images/category/card_registration.png",
+        url: const CardRegistration(),
+      ),
+      Category(
         name: 'কার্ড যোগ',
+        key: keyCardAdd,
         icon: "assets/images/category/card_add.png",
         url: Scaffold(
           appBar: AppBar(),
           body: const Profile(),
         ),
-      ),
-      Category(
-        name: 'কার্ড রেজিস্ট্রেশন',
-        icon: "assets/images/category/card_registration.png",
-        url: const CardRegistration(),
       ),
       Category(
         name: 'কার্ড রিচার্জ',

@@ -55,6 +55,7 @@ class CategoriesSection extends StatelessWidget {
                           );
                         },
                         child: Column(
+                          key: subcategory.key,
                           children: [
                             Card(
                               color:

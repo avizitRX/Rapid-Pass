@@ -2,8 +2,10 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:rapid_pass/components/add_card_number.dart';
 import 'package:rapid_pass/components/categories_section.dart';
+import 'package:rapid_pass/models/categories.dart';
 import 'package:rapid_pass/services/information_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tutorial/tutorial.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -18,10 +20,16 @@ class _HomepageState extends State<Homepage> {
 
   String name = "";
 
+  final keyBalanceCheck = GlobalKey();
+
+  List<TutorialItem> items = [];
+
   @override
   void initState() {
     InformationApi().fetchBalance();
     loadData();
+    tutorial();
+
     super.initState();
   }
 
@@ -31,6 +39,95 @@ class _HomepageState extends State<Homepage> {
     setState(() {
       name = prefs.getString('name')!;
     });
+  }
+
+  Future<void> tutorial() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    items.addAll(
+      {
+        TutorialItem(
+          globalKey: keyCardRegistration,
+          touchScreen: true,
+          top: 420,
+          left: 30,
+          children: [
+            const Text(
+              "আপনার কার্ডটি প্রথমে র‌্যাপিড পাস সার্ভারে রেজিস্টার করুন",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            const SizedBox(
+              height: 30,
+            )
+          ],
+          widgetNext: const Text(
+            "পরবর্তী",
+            style: TextStyle(
+              color: Colors.lightBlue,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          shapeFocus: ShapeFocus.oval,
+        ),
+        TutorialItem(
+          globalKey: keyCardAdd,
+          touchScreen: true,
+          top: 420,
+          left: 30,
+          children: [
+            const Text(
+              "এবার আপনার কার্ডটি অ্যাপের সাথে সংযুক্ত করুন",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            const SizedBox(
+              height: 30,
+            )
+          ],
+          widgetNext: const Text(
+            "পরবর্তী",
+            style: TextStyle(
+              color: Colors.lightBlue,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          shapeFocus: ShapeFocus.oval,
+        ),
+        TutorialItem(
+          globalKey: keyBalanceCheck,
+          touchScreen: true,
+          top: 200,
+          left: 50,
+          children: [
+            const Text(
+              "তারপর আপনি চাইলে এখানে ক্লিক করে ব্যালেন্স দেখতে পারবেন",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            const SizedBox(
+              height: 30,
+            )
+          ],
+          widgetNext: const Text(
+            "শেষ",
+            style: TextStyle(
+              color: Colors.lightBlue,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          shapeFocus: ShapeFocus.square,
+        ),
+      },
+    );
+
+    bool isFirstLaunch = prefs.getBool('isFirstLaunch') ?? true;
+
+    if (!isFirstLaunch) {
+      Future.delayed(const Duration(microseconds: 200)).then((value) {
+        Tutorial.showTutorial(context, items);
+      });
+      await prefs.setBool('isFirstLaunch', false);
+    } else {
+      isFirstLaunch = false;
+    }
   }
 
   @override
@@ -76,6 +173,7 @@ class _HomepageState extends State<Homepage> {
 
                     // Balance Check Button
                     ElevatedButton(
+                      key: keyBalanceCheck,
                       onPressed: () async {
                         final SharedPreferences prefs =
                             await SharedPreferences.getInstance();
