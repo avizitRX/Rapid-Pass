@@ -53,7 +53,30 @@ class _HomepageState extends State<Homepage> {
           left: 30,
           children: [
             const Text(
-              "আপনার কার্ডটি প্রথমে র‌্যাপিড পাস সার্ভারে রেজিস্টার করুন",
+              "আপনার কার্ডটি প্রথমে র‌্যাপিড পাস সার্ভারে রেজিস্টার করুন (আগেই রেজিস্ট্রেশন করে থাকলে দ্বিতীয়বার করতে হবেনা)",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            const SizedBox(
+              height: 30,
+            )
+          ],
+          widgetNext: const Text(
+            "পরবর্তী",
+            style: TextStyle(
+              color: Colors.lightBlue,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          shapeFocus: ShapeFocus.oval,
+        ),
+        TutorialItem(
+          globalKey: keyCardRegistration,
+          touchScreen: true,
+          top: 420,
+          left: 30,
+          children: [
+            const Text(
+              "অনলাইন রেজিষ্ট্রেশনের ২৪ ঘন্টা পর আপনার তথ্য যাচাই ও ব্যালেন্স দেখতে পারবেন",
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             const SizedBox(
