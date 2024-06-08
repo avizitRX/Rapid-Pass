@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:rapid_pass/components/categories_section.dart';
+import 'package:rapid_pass/components/homepage_ad_slider.dart';
 import 'package:rapid_pass/models/categories.dart';
 import 'package:rapid_pass/services/information_api.dart';
 import 'package:rapid_pass/views/profile.dart';
@@ -338,6 +339,8 @@ class _HomepageState extends State<Homepage> {
         ),
 
         const CategoriesSection(),
+
+        const HomepageAdSlider(),
       ],
     );
   }
