@@ -146,7 +146,7 @@ class _HomepageState extends State<Homepage> {
     bool isFirstLaunch = prefs.getBool('isFirstLaunch') ?? true;
 
     if (isFirstLaunch) {
-      Future.delayed(const Duration(microseconds: 200)).then((value) {
+      Future.delayed(const Duration(seconds: 2)).then((value) {
         Tutorial.showTutorial(context, items);
       });
       await prefs.setBool('isFirstLaunch', false);
