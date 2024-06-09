@@ -168,7 +168,6 @@ class _HomepageState extends State<Homepage> {
                 child: Container(
                   padding: const EdgeInsets.only(top: 30, bottom: 40),
                   decoration: const BoxDecoration(
-                    // color: Theme.of(context).colorScheme.primaryFixedDim),
                     image: DecorationImage(
                         image: AssetImage('assets/background.jpg'),
                         fit: BoxFit.cover),
@@ -226,8 +225,6 @@ class _HomepageState extends State<Homepage> {
         // Balance Check Button
         Container(
           padding: const EdgeInsets.only(top: 5, bottom: 20),
-          // decoration: BoxDecoration(
-          //     color: Theme.of(context).colorScheme.primaryFixedDim),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
