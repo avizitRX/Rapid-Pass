@@ -4,6 +4,7 @@ import 'package:rapid_pass/components/add_card_number.dart';
 import 'package:rapid_pass/providers/get_information_provider.dart';
 import 'package:rapid_pass/providers/theme_provider.dart';
 import 'package:rapid_pass/services/clear_all_information.dart';
+import 'package:rapid_pass/views/about.dart';
 
 class Settings extends StatefulWidget {
   Settings(GetInformationProvider this.infoData, {super.key});
@@ -15,9 +16,6 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  int flag = 0;
-  bool locked = true;
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,46 +50,22 @@ class _SettingsState extends State<Settings> {
               // const SizedBox(
               //   height: 10,
               // ),
-              ElevatedButton(
-                onPressed: () async {
-                  await clearAllInformation();
-                },
-                child: const Text('Clear All Information'),
-              ),
+              // ElevatedButton(
+              //   onPressed: () async {
+              //     await clearAllInformation();
+              //   },
+              //   child: const Text('Clear All Information'),
+              // ),
 
               // About Section
-              TextButton(
-                onPressed: () {
-                  if (flag > 8) {
-                    locked = false;
-                  }
-                  flag++;
-                  print(flag);
-                },
-                onLongPress: () {
-                  if (!locked) {
-                    showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        title: const Text('Hello There'),
-                        content: const Text('Yoooooooo!'),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, 'OK'),
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-                },
-                style: ButtonStyle(
-                  overlayColor: WidgetStateProperty.all(Colors.transparent),
+              ElevatedButton(
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const About(),
+                  ),
                 ),
-                child: Text(
-                  'Developed with ❤️',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
+                child: const Text('আমাদের সম্পর্কে'),
               ),
             ],
           ),
