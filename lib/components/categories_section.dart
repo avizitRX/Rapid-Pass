@@ -1,8 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rapid_pass/models/categories.dart';
+import 'package:rapid_pass/services/admob_services.dart';
 
-class CategoriesSection extends StatelessWidget {
+class CategoriesSection extends StatefulWidget {
   const CategoriesSection({super.key});
+
+  @override
+  State<CategoriesSection> createState() => _CategoriesSectionState();
+}
+
+class _CategoriesSectionState extends State<CategoriesSection> {
+  InterstitialAd? _interstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+    _createInterstitialAd();
+  }
+
+  void _createInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: AdmobServices.interstitialAdUnitId!,
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) => _interstitialAd = ad,
+        onAdFailedToLoad: (LoadAdError error) => _interstitialAd = null,
+      ),
+    );
+  }
+
+  void _showInterstitialAd(url) {
+    if (_interstitialAd != null) {
+      _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+        onAdDismissedFullScreenContent: (ad) {
+          ad.dispose();
+          _createInterstitialAd();
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => url,
+            ),
+          );
+        },
+        onAdFailedToShowFullScreenContent: (ad, error) {
+          ad.dispose();
+          _createInterstitialAd();
+        },
+      );
+      _interstitialAd!.show();
+      _interstitialAd = null;
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _interstitialAd!.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +105,7 @@ class CategoriesSection extends StatelessWidget {
                           final subcategory = category.subcategories[subIndex];
                           return GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => subcategory.url!,
-                                ),
-                              );
+                              _showInterstitialAd(subcategory.url);
                             },
                             child: Column(
                               key: subcategory.key,

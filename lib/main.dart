@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:rapid_pass/providers/balance_provider.dart';
 import 'package:rapid_pass/providers/get_information_provider.dart';
@@ -11,6 +12,8 @@ import 'package:rapid_pass/views/base.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  MobileAds.instance.initialize();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

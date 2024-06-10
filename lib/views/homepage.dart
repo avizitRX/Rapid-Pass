@@ -159,68 +159,68 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Expanded(
-              // Header Balance Check Area
-              child: RippleEffect(
-                dampening: 0.97,
-                child: Container(
-                  padding: const EdgeInsets.only(top: 30, bottom: 40),
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/background.jpg'),
-                        fit: BoxFit.cover),
-                  ),
-                  child: Column(
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            width: 50.0,
-                            height: 50.0,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.white,
-                            ),
-                            child: Icon(
-                              Icons.person_rounded,
-                              size: 40,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 25),
-                              child: Text(
-                                name,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                    ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+        // Row(
+        //   children: [
+        //     Expanded(
+        //       // Header Balance Check Area
+        //       child: RippleEffect(
+        //         dampening: 0.97,
+        //         child: Container(
+        //           padding: const EdgeInsets.only(top: 30, bottom: 40),
+        //           decoration: const BoxDecoration(
+        //             image: DecorationImage(
+        //                 image: AssetImage('assets/background.jpg'),
+        //                 fit: BoxFit.cover),
+        //           ),
+        //           child: Column(
+        //             children: [
+        //               Column(
+        //                 children: [
+        //                   Container(
+        //                     width: 50.0,
+        //                     height: 50.0,
+        //                     decoration: const BoxDecoration(
+        //                       shape: BoxShape.circle,
+        //                       color: Colors.white,
+        //                     ),
+        //                     child: Icon(
+        //                       Icons.person_rounded,
+        //                       size: 40,
+        //                       color: Theme.of(context).colorScheme.primary,
+        //                     ),
+        //                   ),
+        //                   const SizedBox(
+        //                     height: 5,
+        //                   ),
+        //                   Container(
+        //                     decoration: BoxDecoration(
+        //                       color: Colors.white,
+        //                       borderRadius: BorderRadius.circular(30),
+        //                     ),
+        //                     child: Padding(
+        //                       padding: const EdgeInsets.symmetric(
+        //                           vertical: 5, horizontal: 25),
+        //                       child: Text(
+        //                         name,
+        //                         style: Theme.of(context)
+        //                             .textTheme
+        //                             .bodyLarge!
+        //                             .copyWith(
+        //                               color:
+        //                                   Theme.of(context).colorScheme.primary,
+        //                             ),
+        //                       ),
+        //                     ),
+        //                   ),
+        //                 ],
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
 
         // Balance Check Button
         Container(

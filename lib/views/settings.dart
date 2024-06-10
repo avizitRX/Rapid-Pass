@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:rapid_pass/components/add_card_number.dart';
 import 'package:rapid_pass/providers/get_information_provider.dart';
 import 'package:rapid_pass/providers/theme_provider.dart';
+import 'package:rapid_pass/services/admob_services.dart';
 import 'package:rapid_pass/services/clear_all_information.dart';
 import 'package:rapid_pass/views/about.dart';
 
@@ -16,6 +18,44 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  InterstitialAd? _interstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+    _createInterstitialAd();
+  }
+
+  void _createInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: AdmobServices.interstitialAdUnitId!,
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) => _interstitialAd = ad,
+        onAdFailedToLoad: (LoadAdError error) => _interstitialAd = null,
+      ),
+    );
+  }
+
+  void _showInterstitialAd() {
+    if (_interstitialAd != null) {
+      _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+        onAdDismissedFullScreenContent: (ad) {
+          ad.dispose();
+          _createInterstitialAd();
+
+          addCardNumber(context);
+        },
+        onAdFailedToShowFullScreenContent: (ad, error) {
+          ad.dispose();
+          _createInterstitialAd();
+        },
+      );
+      _interstitialAd!.show();
+      _interstitialAd = null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -31,11 +71,11 @@ class _SettingsState extends State<Settings> {
               ),
               widget.infoData.info?.cardNumber == ""
                   ? ElevatedButton(
-                      onPressed: () => addCardNumber(context),
+                      onPressed: () => _showInterstitialAd(),
                       child: const Text('কার্ড নম্বর যোগ'),
                     )
                   : ElevatedButton(
-                      onPressed: () => addCardNumber(context),
+                      onPressed: () => _showInterstitialAd(),
                       child: const Text('কার্ড নম্বর পরিবর্তন'),
                     ),
               const SizedBox(

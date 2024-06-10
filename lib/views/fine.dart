@@ -1,7 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:rapid_pass/services/admob_services.dart';
 
-class Fine extends StatelessWidget {
+class Fine extends StatefulWidget {
   const Fine({super.key});
+
+  @override
+  State<Fine> createState() => _FineState();
+}
+
+class _FineState extends State<Fine> {
+  BannerAd? _bannerAd;
+
+  @override
+  void initState() {
+    super.initState();
+    _createBannerAd();
+  }
+
+  void _createBannerAd() {
+    _bannerAd = BannerAd(
+      size: AdSize.fullBanner,
+      adUnitId: AdmobServices.bannerAdUnitId!,
+      listener: AdmobServices.bannerListener,
+      request: const AdRequest(),
+    )..load();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _bannerAd!.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +43,10 @@ class Fine extends StatelessWidget {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text(
-              '''
+            child: Column(
+              children: [
+                Text(
+                  '''
 বাংলাদেশের প্রথম মেট্রোরেল ‘ঢাকা মেট্রোরেল’। অনেকেই মেট্রোরেল ভ্রমণে অভ্যস্ত নাই বিধায় জরিমানা সংক্রান্ত বিষয়ে কম অবগত থাকেন। এখানে ঢাকা মেট্রোরেলের সব ধরনের জরিমানা নিয়ে আলোচনা করা হয়েছে।
 
 ১) এক ঘন্টা ওভারটাইম ১০০ টাকা। অর্থাৎ, আপনি টিকেট কেটে বা আপনার MRT or Rapid Pass দিয়ে এন্ট্রি গেইট থেকে ঢুকলেই টাইম কাউন্টিং শুরু হবে। এরপর ১ ঘন্টা বা ৬০ মিনিটসের বেশী টাইম পেইড জোনে থাকলেই জরিমানা হবে। সুতরাং, অযথা সময় নষ্ট করা যাবেনা। (ভাড়া তো কাটবেই সাথে জরিমানা)
@@ -31,11 +63,20 @@ class Fine extends StatelessWidget {
 
 ৭) একটা MRT pass দিয়ে শুধুমাত্র একজন যেতে পারবেন। এছাড়া অন্যদের টিকেট লাগবে। যদি কাউকে এক পাসের বিপরীতে একাধিক জনের এন্ট্রি পাওয়া যায় তাহলে কার্ডধারী ব্যতীত বাকি সবার জন্য ১২০ টাকা করে জরিমানা দিতে হবে।
           ''',
-              textAlign: TextAlign.justify,
-              style: Theme.of(context).textTheme.bodyLarge,
+                  textAlign: TextAlign.justify,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ],
             ),
           ),
         ),
+        bottomNavigationBar: _bannerAd == null
+            ? Container()
+            : SizedBox(
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              ),
       ),
     );
   }

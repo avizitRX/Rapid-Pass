@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rapid_pass/components/add_card_number.dart';
 import 'package:rapid_pass/providers/get_information_provider.dart';
+import 'package:rapid_pass/services/admob_services.dart';
 
-class ProfilePageInfoCard extends StatelessWidget {
-  const ProfilePageInfoCard({
+class ProfilePageInfoCard extends StatefulWidget {
+  ProfilePageInfoCard({
     super.key,
     required this.infoData,
   });
@@ -11,10 +13,59 @@ class ProfilePageInfoCard extends StatelessWidget {
   final GetInformationProvider infoData;
 
   @override
+  State<ProfilePageInfoCard> createState() => _ProfilePageInfoCardState();
+}
+
+class _ProfilePageInfoCardState extends State<ProfilePageInfoCard> {
+  InterstitialAd? _interstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+    _createInterstitialAd();
+  }
+
+  void _createInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: AdmobServices.interstitialAdUnitId!,
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) => _interstitialAd = ad,
+        onAdFailedToLoad: (LoadAdError error) => _interstitialAd = null,
+      ),
+    );
+  }
+
+  void _showInterstitialAd() {
+    if (_interstitialAd != null) {
+      _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+        onAdDismissedFullScreenContent: (ad) {
+          ad.dispose();
+          _createInterstitialAd();
+
+          addCardNumber(context);
+        },
+        onAdFailedToShowFullScreenContent: (ad, error) {
+          ad.dispose();
+          _createInterstitialAd();
+        },
+      );
+      _interstitialAd!.show();
+      _interstitialAd = null;
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _interstitialAd!.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        infoData.info!.cardNumber == ""
+        widget.infoData.info!.cardNumber == ""
             ? Column(
                 children: [
                   InteractiveViewer(
@@ -28,7 +79,9 @@ class ProfilePageInfoCard extends StatelessWidget {
                     height: 20,
                   ),
                   ElevatedButton(
-                    onPressed: () => addCardNumber(context),
+                    onPressed: () {
+                      _showInterstitialAd();
+                    },
                     child: const Text('কার্ড নম্বর যোগ'),
                   ),
                 ],
@@ -57,7 +110,7 @@ class ProfilePageInfoCard extends StatelessWidget {
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                               Text(
-                                infoData.info!.name,
+                                widget.infoData.info!.name,
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ],
@@ -89,7 +142,7 @@ class ProfilePageInfoCard extends StatelessWidget {
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                               Text(
-                                infoData.info!.cardNumber,
+                                widget.infoData.info!.cardNumber,
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ],
@@ -121,7 +174,7 @@ class ProfilePageInfoCard extends StatelessWidget {
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                               Text(
-                                infoData.info!.cardStatus,
+                                widget.infoData.info!.cardStatus,
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ],
