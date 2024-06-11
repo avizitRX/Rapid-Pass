@@ -16,48 +16,48 @@ class _CategoriesSectionState extends State<CategoriesSection> {
   @override
   void initState() {
     super.initState();
-    _createInterstitialAd();
+    // _createInterstitialAd();
   }
 
-  void _createInterstitialAd() {
-    InterstitialAd.load(
-      adUnitId: AdmobServices.interstitialAdUnitId!,
-      request: const AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) => _interstitialAd = ad,
-        onAdFailedToLoad: (LoadAdError error) => _interstitialAd = null,
-      ),
-    );
-  }
+  // void _createInterstitialAd() {
+  //   InterstitialAd.load(
+  //     adUnitId: AdmobServices.interstitialAdUnitId!,
+  //     request: const AdRequest(),
+  //     adLoadCallback: InterstitialAdLoadCallback(
+  //       onAdLoaded: (ad) => _interstitialAd = ad,
+  //       onAdFailedToLoad: (LoadAdError error) => _interstitialAd = null,
+  //     ),
+  //   );
+  // }
 
-  void _showInterstitialAd(url) {
-    if (_interstitialAd != null) {
-      _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-        onAdDismissedFullScreenContent: (ad) {
-          ad.dispose();
-          _createInterstitialAd();
+  // void _showInterstitialAd(url) {
+  //   if (_interstitialAd != null) {
+  //     _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+  //       onAdDismissedFullScreenContent: (ad) {
+  //         ad.dispose();
+  //         _createInterstitialAd();
 
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => url,
-            ),
-          );
-        },
-        onAdFailedToShowFullScreenContent: (ad, error) {
-          ad.dispose();
-          _createInterstitialAd();
-        },
-      );
-      _interstitialAd!.show();
-      _interstitialAd = null;
-    }
-  }
+  //         Navigator.push(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (context) => url,
+  //           ),
+  //         );
+  //       },
+  //       onAdFailedToShowFullScreenContent: (ad, error) {
+  //         ad.dispose();
+  //         _createInterstitialAd();
+  //       },
+  //     );
+  //     _interstitialAd!.show();
+  //     _interstitialAd = null;
+  //   }
+  // }
 
   @override
   void dispose() {
     super.dispose();
-    _interstitialAd!.dispose();
+    // _interstitialAd!.dispose();
   }
 
   @override
@@ -105,7 +105,12 @@ class _CategoriesSectionState extends State<CategoriesSection> {
                           final subcategory = category.subcategories[subIndex];
                           return GestureDetector(
                             onTap: () {
-                              _showInterstitialAd(subcategory.url);
+                              // _showInterstitialAd(subcategory.url);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => subcategory.url!),
+                              );
                             },
                             child: Column(
                               key: subcategory.key,

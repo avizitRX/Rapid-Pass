@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rapid_pass/components/map_timeline_tile.dart';
 import 'package:rapid_pass/models/station.dart';
+import 'package:rapid_pass/services/admob_services.dart';
 
 class FareMap extends StatefulWidget {
   FareMap({super.key});
@@ -10,9 +12,14 @@ class FareMap extends StatefulWidget {
 }
 
 class _FareMapState extends State<FareMap> {
+  BannerAd? _bannerAd;
+
   @override
   void initState() {
     super.initState();
+
+    _createBannerAd();
+
     for (var station in stationsInformation) {
       timelineTiles.add(
         MapTimelineTile(
@@ -23,6 +30,15 @@ class _FareMapState extends State<FareMap> {
         ),
       );
     }
+  }
+
+  void _createBannerAd() {
+    _bannerAd = BannerAd(
+      size: AdSize.fullBanner,
+      adUnitId: AdmobServices.bannerAdUnitId!,
+      listener: AdmobServices.bannerListener,
+      request: const AdRequest(),
+    )..load();
   }
 
   final List<Station> stationsInformation = [
@@ -62,6 +78,13 @@ class _FareMapState extends State<FareMap> {
             ),
           ),
         ),
+        bottomNavigationBar: _bannerAd == null
+            ? Container()
+            : SizedBox(
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              ),
       ),
     );
   }

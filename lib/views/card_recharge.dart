@@ -1,7 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:rapid_pass/services/admob_services.dart';
 
-class CardRecharge extends StatelessWidget {
+class CardRecharge extends StatefulWidget {
   const CardRecharge({super.key});
+
+  @override
+  State<CardRecharge> createState() => _CardRechargeState();
+}
+
+class _CardRechargeState extends State<CardRecharge> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  static bannerAds(BuildContext context) {
+    return Builder(
+      builder: (ctx) {
+        final BannerAd myBanner = BannerAd(
+          size: AdSize.fullBanner,
+          adUnitId: AdmobServices.bannerAdUnitId!,
+          listener: AdmobServices.bannerListener,
+          request: const AdRequest(),
+        )..load();
+
+        return SizedBox(
+          width: myBanner.size.width.toDouble(),
+          height: myBanner.size.height.toDouble(),
+          child: AdWidget(ad: myBanner),
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +71,10 @@ class CardRecharge extends StatelessWidget {
                       ),
                     ],
                   ),
+                ),
+                bannerAds(context),
+                const SizedBox(
+                  height: 5,
                 ),
                 InteractiveViewer(
                   panEnabled: true,
@@ -74,6 +114,10 @@ class CardRecharge extends StatelessWidget {
                     ],
                   ),
                 ),
+                bannerAds(context),
+                const SizedBox(
+                  height: 5,
+                ),
                 InteractiveViewer(
                   panEnabled: true,
                   child: const Image(
@@ -110,6 +154,10 @@ class CardRecharge extends StatelessWidget {
                       ),
                     ],
                   ),
+                ),
+                bannerAds(context),
+                const SizedBox(
+                  height: 5,
                 ),
                 InteractiveViewer(
                   panEnabled: true,
@@ -153,6 +201,10 @@ class CardRecharge extends StatelessWidget {
                     ],
                   ),
                 ),
+                bannerAds(context),
+                const SizedBox(
+                  height: 5,
+                ),
                 RichText(
                   textAlign: TextAlign.justify,
                   text: TextSpan(
@@ -172,6 +224,7 @@ class CardRecharge extends StatelessWidget {
             ),
           ),
         ),
+        bottomNavigationBar: bannerAds(context),
       ),
     );
   }
