@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rapid_pass/models/categories.dart';
-import 'package:rapid_pass/services/admob_services.dart';
 
 class CategoriesSection extends StatefulWidget {
   const CategoriesSection({super.key});
@@ -11,7 +9,7 @@ class CategoriesSection extends StatefulWidget {
 }
 
 class _CategoriesSectionState extends State<CategoriesSection> {
-  InterstitialAd? _interstitialAd;
+  // InterstitialAd? _interstitialAd;
 
   @override
   void initState() {
