@@ -43,8 +43,6 @@ class _SettingsState extends State<Settings> {
         onAdDismissedFullScreenContent: (ad) {
           ad.dispose();
           _createInterstitialAd();
-
-          addCardNumber(context);
         },
         onAdFailedToShowFullScreenContent: (ad, error) {
           ad.dispose();
@@ -71,11 +69,17 @@ class _SettingsState extends State<Settings> {
               ),
               widget.infoData.info?.cardNumber == ""
                   ? ElevatedButton(
-                      onPressed: () => _showInterstitialAd(),
+                      onPressed: () {
+                        _showInterstitialAd();
+                        addCardNumber(context);
+                      },
                       child: const Text('কার্ড নম্বর যোগ'),
                     )
                   : ElevatedButton(
-                      onPressed: () => _showInterstitialAd(),
+                      onPressed: () {
+                        _showInterstitialAd();
+                        addCardNumber(context);
+                      },
                       child: const Text('কার্ড নম্বর পরিবর্তন'),
                     ),
               const SizedBox(

@@ -50,13 +50,6 @@ class _ProfileState extends State<Profile> {
         onAdDismissedFullScreenContent: (ad) {
           ad.dispose();
           _createInterstitialAd();
-
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Settings(infoData),
-            ),
-          );
         },
         onAdFailedToShowFullScreenContent: (ad, error) {
           ad.dispose();
@@ -117,6 +110,13 @@ class _ProfileState extends State<Profile> {
                             ElevatedButton(
                               onPressed: () {
                                 _showInterstitialAd(infoData);
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Settings(infoData),
+                                  ),
+                                );
                               },
                               child: const Text('সেটিংস'),
                             ),

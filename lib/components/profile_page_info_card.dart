@@ -42,8 +42,6 @@ class _ProfilePageInfoCardState extends State<ProfilePageInfoCard> {
         onAdDismissedFullScreenContent: (ad) {
           ad.dispose();
           _createInterstitialAd();
-
-          addCardNumber(context);
         },
         onAdFailedToShowFullScreenContent: (ad, error) {
           ad.dispose();
@@ -81,6 +79,8 @@ class _ProfilePageInfoCardState extends State<ProfilePageInfoCard> {
                   ElevatedButton(
                     onPressed: () {
                       _showInterstitialAd();
+
+                      addCardNumber(context);
                     },
                     child: const Text('কার্ড নম্বর যোগ'),
                   ),
