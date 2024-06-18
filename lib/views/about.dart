@@ -4,9 +4,9 @@ import 'package:url_launcher/url_launcher.dart';
 class About extends StatelessWidget {
   const About({super.key});
 
-  Future<void> _launchUrl(_url) async {
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
+  Future<void> _launchUrl(url) async {
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
     }
   }
 

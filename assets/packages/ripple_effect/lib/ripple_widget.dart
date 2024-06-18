@@ -113,7 +113,7 @@ class _RippleEffectState extends State<RippleEffect> with SingleTickerProviderSt
       },
       child: LayoutBuilder(
         builder: (context, constraints) {
-          WidgetsBinding.instance!.addPostFrameCallback((_) => Future.delayed(
+          WidgetsBinding.instance.addPostFrameCallback((_) => Future.delayed(
                 Duration(milliseconds: 500),
                 _startProcess,
               ));

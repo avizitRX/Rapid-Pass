@@ -142,6 +142,7 @@ class _CategoriesSectionState extends State<CategoriesSection> {
                                 Text(
                                   subcategory.name,
                                   textAlign: TextAlign.center,
+                                  overflow: TextOverflow.clip,
                                   style: TextStyle(
                                     color:
                                         Theme.of(context).colorScheme.secondary,

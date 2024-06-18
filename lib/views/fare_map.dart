@@ -5,7 +5,7 @@ import 'package:rapid_pass/models/station.dart';
 import 'package:rapid_pass/services/admob_services.dart';
 
 class FareMap extends StatefulWidget {
-  FareMap({super.key});
+  const FareMap({super.key});
 
   @override
   State<FareMap> createState() => _FareMapState();
