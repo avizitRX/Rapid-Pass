@@ -1,4 +1,4 @@
-package com.example.rapid_pass
+package com.ovijaan.rapid.pass
 
 import io.flutter.embedding.android.FlutterActivity
 

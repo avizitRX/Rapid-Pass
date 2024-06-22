@@ -5,18 +5,18 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 class AdmobServices {
   static String? get bannerAdUnitId {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/6300978111';
+      return 'ca-app-pub-1531376268159748/6440681346';
     } else if (Platform.isIOS) {
-      return 'ca-app-pub-3940256099942544/2934735716';
+      return 'ca-app-pub-1531376268159748/3019137620';
     }
     return null;
   }
 
   static String? get interstitialAdUnitId {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/1033173712';
+      return 'ca-app-pub-1531376268159748/1240325555';
     } else if (Platform.isIOS) {
-      return 'ca-app-pub-3940256099942544/4411468910';
+      return 'ca-app-pub-1531376268159748/4387580680';
     }
     return null;
   }
@@ -39,15 +39,15 @@ class AdmobServices {
     onAdClosed: (ad) => debugPrint('Ad closed!'),
   );
 
-  static final NativeAdListener nativeListener = NativeAdListener(
-    onAdLoaded: (ad) {
-      debugPrint('$NativeAd loaded.');
-    },
-    onAdFailedToLoad: (ad, error) {
-      debugPrint('$NativeAd failed to load: $error');
-      ad.dispose();
-    },
-  );
+  // static final NativeAdListener nativeListener = NativeAdListener(
+  //   onAdLoaded: (ad) {
+  //     debugPrint('$NativeAd loaded.');
+  //   },
+  //   onAdFailedToLoad: (ad, error) {
+  //     debugPrint('$NativeAd failed to load: $error');
+  //     ad.dispose();
+  //   },
+  // );
 
   // static final NativeTemplateStyle customMediumNativeTemplateStyle =
   //     NativeTemplateStyle(
