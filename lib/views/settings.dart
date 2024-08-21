@@ -3,9 +3,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:rapid_pass/components/add_card_number.dart';
 import 'package:rapid_pass/providers/get_information_provider.dart';
-import 'package:rapid_pass/providers/theme_provider.dart';
 import 'package:rapid_pass/services/admob_services.dart';
-import 'package:rapid_pass/services/clear_all_information.dart';
 import 'package:rapid_pass/views/about.dart';
 
 class Settings extends StatefulWidget {

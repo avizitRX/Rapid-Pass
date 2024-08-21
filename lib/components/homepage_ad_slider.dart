@@ -96,7 +96,7 @@ class _HomepageAdSliderState extends State<HomepageAdSlider> {
               _launchInBrowser(toLaunch);
             },
             child: Image.asset(
-              'assets/images/ad/ad2.jpg',
+              'assets/images/ad/ad2.png',
               fit: BoxFit.contain,
             ),
           ),
