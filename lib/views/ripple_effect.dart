@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:ripple_effect/ripple_widget.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -17,13 +19,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         splashColor: Colors.lightBlue[100],
       ),
-      home: MyPage(),
+      home: const MyPage(),
     );
   }
 }
 
 class MyPage extends StatefulWidget {
-  MyPage({Key? key}) : super(key: key) {}
+  const MyPage({super.key});
 
   @override
   _MyPageState createState() => _MyPageState();
@@ -96,7 +98,7 @@ class _MyPageState extends State<MyPage> {
                   onTap: (Offset position) {
                     rippleController.touch(position, 100, radius: 32);
                     Future.delayed(
-                        Duration(milliseconds: 500),
+                        const Duration(milliseconds: 500),
                         () =>
                             rippleController.touch(position, 150, radius: 24));
                   },
@@ -106,15 +108,15 @@ class _MyPageState extends State<MyPage> {
                   onTap: (Offset position) {
                     rippleController.touch(position, 100, radius: 24);
                     Future.delayed(
-                        Duration(milliseconds: 500),
+                        const Duration(milliseconds: 500),
                         () =>
                             rippleController.touch(position, 100, radius: 24));
                     Future.delayed(
-                        Duration(milliseconds: 1000),
+                        const Duration(milliseconds: 1000),
                         () =>
                             rippleController.touch(position, 100, radius: 24));
                     Future.delayed(
-                        Duration(milliseconds: 1500),
+                        const Duration(milliseconds: 1500),
                         () =>
                             rippleController.touch(position, 100, radius: 24));
                   },
@@ -138,8 +140,7 @@ class RotatingButton extends StatefulWidget {
   final IconData icon;
   final Function onTap;
 
-  const RotatingButton({Key? key, required this.icon, required this.onTap})
-      : super(key: key);
+  const RotatingButton({super.key, required this.icon, required this.onTap});
 
   @override
   _RotatingButtonState createState() => _RotatingButtonState();
@@ -148,14 +149,14 @@ class RotatingButton extends StatefulWidget {
 class _RotatingButtonState extends State<RotatingButton>
     with SingleTickerProviderStateMixin {
   late final controller =
-      AnimationController(vsync: this, duration: Duration(milliseconds: 350));
+      AnimationController(vsync: this, duration: const Duration(milliseconds: 350));
   late final rotationAnimation = CurvedAnimation(
     parent: controller,
-    curve: Interval(0, 1, curve: Curves.decelerate),
+    curve: const Interval(0, 1, curve: Curves.decelerate),
   );
   late final bgAnimation = CurvedAnimation(
     parent: controller,
-    curve: Interval(
+    curve: const Interval(
       0,
       1,
       curve: Curves.easeIn,
@@ -190,7 +191,7 @@ class _RotatingButtonState extends State<RotatingButton>
         animation: controller,
         builder: (context, child) {
           return Container(
-            padding: EdgeInsets.all(24),
+            padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.white.withOpacity(sin(bgAnimation.value * pi)),

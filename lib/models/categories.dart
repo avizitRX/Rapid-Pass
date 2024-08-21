@@ -72,7 +72,7 @@ List<Category> categories = [
       Category(
         name: 'ম্যাপ',
         icon: "assets/images/category/fare_map.png",
-        url: FareMap(),
+        url: const FareMap(),
       ),
       Category(
         name: 'স্টেশন',

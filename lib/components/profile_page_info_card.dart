@@ -5,7 +5,7 @@ import 'package:rapid_pass/providers/get_information_provider.dart';
 import 'package:rapid_pass/services/admob_services.dart';
 
 class ProfilePageInfoCard extends StatefulWidget {
-  ProfilePageInfoCard({
+  const ProfilePageInfoCard({
     super.key,
     required this.infoData,
   });

@@ -30,9 +30,9 @@ class StationDataTable {
   }
 
   Widget buildDataTable() {
-    Future<List<List<String>>> _excelData = readExcelFile();
+    Future<List<List<String>>> excelData0 = readExcelFile();
     return FutureBuilder<List<List<String>>>(
-      future: _excelData,
+      future: excelData0,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
